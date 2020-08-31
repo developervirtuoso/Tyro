@@ -523,7 +523,8 @@ public class Smpp_DaoImpl {
 					String rstype=jo.getString("Credits").substring(0,3);
 					double sum11=Double.parseDouble(sum1);
 					float sum2long=Float.parseFloat(sum1);
-					long aValue = (long) sum2long*10;
+					double sum=sum11*10;
+					long aValue = (long) sum;
 					total=total+aValue;
 				}
 			
