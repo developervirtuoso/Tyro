@@ -1,3 +1,5 @@
+<%@page import="com.beans.ShowTyroBean"%>
+<%@page import="java.util.List"%>
 <%@page import="com.dao.SmsServiceDao"%>
 <%@page import="com.dao.SmsService"%>
 <%@page import="com.dao.Smpp_DaoImpl"%>
@@ -25,19 +27,12 @@
     <h1 class="sms24">SMS 24 HOURS</h1>
     </header>
 <%
-int count=1;
+int count=0;
 long total=0;
 Smpp_DaoImpl daoImpl=new Smpp_DaoImpl();
-SmsService service=new SmsServiceDao();
-long tyrodigital=service.getTyrodigital();
-String CIW_tyrodigital=daoImpl.convertNumberToWords(tyrodigital);
-String total_Str_tyrodigital=daoImpl.numToString(tyrodigital);
-long tyro=service.getTyro_t();
-String CIW_tyro=daoImpl.convertNumberToWords(tyro);
-String total_Str_tyro=daoImpl.numToString(tyro);
-long tyro2=service.getTyro_t2();
-String CIW_tyro2=daoImpl.convertNumberToWords(tyro2);
-String total_Str_tyro2=daoImpl.numToString(tyro2);
+List<ShowTyroBean> list=daoImpl.getShowTyroBeans();
+
+
 	%>
 	<table class="table-1">
 	<tr>
@@ -45,32 +40,65 @@ String total_Str_tyro2=daoImpl.numToString(tyro2);
 		<th>Account</th>
 		<th>Sms Credits</th>
 		<th>View</th>
+		<th>Transfer</th>
 	</tr>
-	<tr>
-		<td><%=count++%></td>
-		<td>tyrodigital </td>
-		<td><a href="#" data-toggle="tooltip" title="<%=CIW_tyrodigital%>"><%=total_Str_tyrodigital %></a></td>
-		<td><a href="showPaymentBySms?clr=appLanguages&act=appLanguages1&name=tyrodigital" class="btn btn-success"> view</a></td>
-	</tr>
-	<tr>
-		<td><%=count++%></td>
-		<td>Tyro_t</td>
-		<td><a href="#" data-toggle="tooltip" title="<%=CIW_tyro%>"><%=total_Str_tyro %></a></td>
-		<td><a href="showPaymentBySms?clr=appLanguages&act=appLanguages1&name=tyro_t" class="btn btn-success"> view</a></td>
-	</tr>
-	<tr>
-		<td><%=count++%></td>
-		<td>Tyro_t2</td>
-		<td><a href="#" data-toggle="tooltip" title="<%=CIW_tyro2%>"><%=total_Str_tyro2 %></a></td>
-		<td><a href="showPaymentBySms?clr=appLanguages&act=appLanguages1&name=tyro_t2" class="btn btn-success"> view</a></td>
-	</tr>
+	<%
+		for(ShowTyroBean showTyroBean:list){
+			total=total+showTyroBean.getCredit();
+			%>
+				<tr>
+				<td><%=++count%></td>
+				<td><%=showTyroBean.getShowName() %> </td>
+				<td><a href="#" data-toggle="tooltip" title="<%=showTyroBean.getCiwValue()%>"><%=showTyroBean.getTotalCiwValue() %></a></td>
+				<td><a href="showPaymentBySms?clr=appLanguages&act=appLanguages1&name=<%=showTyroBean.getName() %>" class="btn btn-success"> view</a></td>
+				<td> <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal<%=count%>">Transfer</button></td>
+			</tr>
+			 <!-- Modal -->
+			  <div class="modal fade" id="myModal<%=count%>" role="dialog">
+			    <div class="modal-dialog">
+			    
+			      <!-- Modal content-->
+			      <div class="modal-content">
+			        <div class="modal-header">
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			          <h4 class="modal-title">Sms Credits : <%=showTyroBean.getTotalCiwValue() %></h4>
+			        </div>
+			        <form action="TransferAmount" method="post">
+				        <div class="modal-body">
+				         <input name="removeUsername" type="hidden" value="<%=showTyroBean.getName()%>">
+				         <div class="form-group">
+						    <label for="pwd">Transfer Sms Credits</label>
+				        	 <input type="number" name="amount" class="form-control" max="<%=showTyroBean.getTotalCiwValue() %>" min="10" required="required" >
+						  </div>
+						  <div class="form-group">
+						    <label for="pwd">Choose User</label>
+						    <select name="addUsername" required="required"  class="form-control">
+						    	<option value="">Choose User</option>
+						    	<%
+						    	for(ShowTyroBean showTyroSelect:list){
+						    		if(!showTyroBean.getName().equals(showTyroSelect.getName())){
+						    			%><option value="<%=showTyroSelect.getName()%>"><%=showTyroSelect.getShowName() %></option><%
+						    		}
+						    	}
+						    	%>
+						    </select>
+						  </div>
+				        </div>
+				        <div class="modal-footer">
+				        <input type="submit" value="Transfer" class="btn btn-primary">
+				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        </div>
+			        </form>
+			      </div>
+			      
+			    </div>
+			  </div>
+			<%
+		}
+	%>
 		
 		<% 
-
-
-
 	try{
-		total=tyrodigital+tyro+tyro2;
 		String CIW=daoImpl.convertNumberToWords(total);
 		String total_Str=daoImpl.numToString(total);
 		%>

@@ -6,11 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.beans.PaymentBeans;
+import com.beans.ShowTyroBean;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -532,5 +534,88 @@ public class Smpp_DaoImpl {
 			e.printStackTrace();
 		}
 			return total;
+		}
+		public List<ShowTyroBean> getShowTyroBeans(){
+			List<ShowTyroBean> list=new ArrayList<ShowTyroBean>();
+			SmsService service=new SmsServiceDao();
+			Smpp_DaoImpl daoImpl=new Smpp_DaoImpl();
+			//////////////////tyrodigital/////////////////////////////
+			long tyrodigital=service.getTyrodigital();
+			String CIW_tyrodigital=daoImpl.convertNumberToWords(tyrodigital);
+			String total_Str_tyrodigital=daoImpl.numToString(tyrodigital);
+			if(total_Str_tyrodigital.equals("")) {
+				total_Str_tyrodigital="0";
+			}
+			daoImpl.setBeanToListTyro(list,"tyrodigital","tyrodigital",tyrodigital,CIW_tyrodigital,total_Str_tyrodigital);
+			//////////////////////////////////////////////////////////////
+			
+			//////////////////tyro/////////////////////////////
+				long tyro=service.getTyro_t();
+				String CIW_tyro=daoImpl.convertNumberToWords(tyro);
+				String total_Str_tyro=daoImpl.numToString(tyro);
+				if(total_Str_tyro.equals("")) {
+					total_Str_tyro="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyro_t","tyro_t",tyro,CIW_tyro,total_Str_tyro);
+			//////////////////////////////////////////////////////////////
+			//////////////////tyro_t2/////////////////////////////
+				long tyro2=service.getTyro_t2();
+				String CIW_tyro2=daoImpl.convertNumberToWords(tyro2);
+				String total_Str_tyro2=daoImpl.numToString(tyro2);
+				if(total_Str_tyro2.equals("")) {
+					total_Str_tyro2="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyro_t2","tyro_t2",tyro2,CIW_tyro2,total_Str_tyro2);
+			//////////////////////////////////////////////////////////////
+			//////////////////tyro_t3/////////////////////////////
+				long tyro_t3=service.gettyro_t3();
+				String CIW_tyro_t3=daoImpl.convertNumberToWords(tyro_t3);
+				String total_Str_tyro_t3=daoImpl.numToString(tyro_t3);
+				if(total_Str_tyro_t3.equals("")) {
+					total_Str_tyro_t3="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyro_t3","tyro_t3",tyro_t3,CIW_tyro_t3,total_Str_tyro_t3);
+			//////////////////////////////////////////////////////////////
+			//////////////////tyro_trs/////////////////////////////
+				long tyro_trs=service.getTyro_trs();
+				String CIW_tyro_trs=daoImpl.convertNumberToWords(tyro_trs);
+				String total_Str_tyro_trs=daoImpl.numToString(tyro_trs);
+				if(total_Str_tyro_trs.equals("")) {
+					total_Str_tyro_trs="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyro_trs","tyro_trs",tyro_trs,CIW_tyro_trs,total_Str_tyro_trs);
+			//////////////////////////////////////////////////////////////
+			//////////////////tyro_trs2/////////////////////////////
+				long tyro_trs2=service.getTyro_trs2();
+				String CIW_tyro_trs2=daoImpl.convertNumberToWords(tyro_trs2);
+				String total_Str_tyro_trs2=daoImpl.numToString(tyro_trs2);
+				if(total_Str_tyro_trs2.equals("")) {
+					total_Str_tyro_trs2="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyro_trs2","tyro_trs2",tyro_trs2,CIW_tyro_trs2,total_Str_tyro_trs2);
+			//////////////////////////////////////////////////////////////
+				//////////////////tyrodigital2/////////////////////////////
+				long tyrodigital2=service.getTyrodigital2();
+				String CIW_tyrodigital2=daoImpl.convertNumberToWords(tyrodigital2);
+				String total_Str_tyrodigital2=daoImpl.numToString(tyrodigital2);
+				if(total_Str_tyro_trs2.equals("")) {
+					total_Str_tyro_trs2="0";
+				}
+				daoImpl.setBeanToListTyro(list,"tyrodigital2","tyrodigital2",tyrodigital2,CIW_tyrodigital2,total_Str_tyrodigital2);
+			//////////////////////////////////////////////////////////////
+			
+			
+			
+			return list;
+		}
+		private void setBeanToListTyro(List<ShowTyroBean> list, String name, String showName, long credit,
+				String ciwValue, String totalCiwValue) {
+			ShowTyroBean showTyroBean=new ShowTyroBean();
+			showTyroBean.setName(name);
+			showTyroBean.setShowName(showName);
+			showTyroBean.setCredit(credit);
+			showTyroBean.setCiwValue(ciwValue);
+			showTyroBean.setTotalCiwValue(totalCiwValue);
+			list.add(showTyroBean);
 		}
 }

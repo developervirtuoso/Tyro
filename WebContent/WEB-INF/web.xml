@@ -4,7 +4,7 @@
   <welcome-file-list>
     <welcome-file>tyro.jsp</welcome-file>
   </welcome-file-list>
-   <servlet>
+  <servlet>
     <servlet-name>tyro</servlet-name>
     <jsp-file>/tyro.jsp</jsp-file>
   </servlet>
@@ -12,7 +12,7 @@
     <servlet-name>tyro</servlet-name>
     <url-pattern>/tyro</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>showPaymentBySms</servlet-name>
     <jsp-file>/showPaymentBySms.jsp</jsp-file>
   </servlet>
@@ -62,5 +62,15 @@
   <servlet-mapping>
     <servlet-name>AdminLogout</servlet-name>
     <url-pattern>/Admin/AdminLogout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TransferAmount</display-name>
+    <servlet-name>TransferAmount</servlet-name>
+    <servlet-class>com.servlet.common.TransferAmount</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TransferAmount</servlet-name>
+    <url-pattern>/TransferAmount</url-pattern>
   </servlet-mapping>
 </web-app>
