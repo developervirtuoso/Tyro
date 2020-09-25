@@ -19,6 +19,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+<%!
+String email=null;
+String adminType=null;
+String auth_key="";
+String name="";
+int id=0;
+%>
 <body class="bg1">
 
 <header style="background-color: #47b6e0;
@@ -27,6 +34,10 @@
     <h1 class="sms24">SMS 24 HOURS</h1>
     </header>
 <%
+if (session.getAttribute("user_name") != null) { 
+	 
+	name = session.getAttribute("user_name").toString();
+	id=(Integer)session.getAttribute("user_id");
 int count=0;
 long total=0;
 Smpp_DaoImpl daoImpl=new Smpp_DaoImpl();
@@ -141,4 +152,8 @@ td {
 }
 	</style>
 </body>
+ <%}else { 
+                 response.sendRedirect("login");
+                 }
+                 %> 
 </html>

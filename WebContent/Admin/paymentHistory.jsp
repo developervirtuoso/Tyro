@@ -159,6 +159,7 @@ logger.info("searchValue=>>"+searchValue);
 														<option value="tyro_t3">tyro_t3</option>
 														<option value="tyro_trs">tyro_trs</option>
 														<option value="tyro_trs2">tyro_trs2</option>
+														<option value="tyrodigital2">tyrodigital2</option>
 													</select>
 											</div>
 										</div>

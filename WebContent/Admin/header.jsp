@@ -19,7 +19,6 @@ int id=0;
                 	auth_key=(String)session.getAttribute("auth_key");
                 	id=(Integer)session.getAttribute("id");
                 	
-                		System.out.println("Enter in if"); 
                 	
                 	%>
 

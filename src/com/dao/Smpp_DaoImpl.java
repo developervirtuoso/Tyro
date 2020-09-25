@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import com.beans.PaymentBeans;
 import com.beans.ShowTyroBean;
+import com.beans.User;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -617,5 +618,85 @@ public class Smpp_DaoImpl {
 			showTyroBean.setCiwValue(ciwValue);
 			showTyroBean.setTotalCiwValue(totalCiwValue);
 			list.add(showTyroBean);
+		}
+		public Boolean checkUser(User user) {
+			
+			 String password;
+			 String name;
+			 String email;
+			 Boolean status =false;
+			 int count=0;
+			 int id=0;
+			 Connection conn=DbConnection.getInstance().getConnection();
+			 Statement stmt=null;
+			 Statement stmt1=null;
+			 ResultSet rs = null;
+			 ResultSet rs1 = null;
+			 
+			 name = user.getName();
+		   	  password =user.getPassword();
+		   	 
+		   	  try {
+		         	
+		         	stmt=conn.createStatement();
+		         	String query = "select count(*) from user where name='"+name+"' and password='"+password+"'";
+		         	System.out.println("query="+query);
+		         	rs = stmt.executeQuery(query);
+		         	 while (rs.next()) {
+		         		 count=rs.getInt(1);
+		         	 }
+		         		 if(count!=0){
+		         			stmt1=conn.createStatement();
+		         			String query1 = "SELECT * FROM user where name='"+name+"' and password='"+password+"'";
+		         			rs1 = stmt1.executeQuery(query1);
+		                	 while (rs1.next()) {
+		                		 
+		                		 id=rs1.getInt("id");
+		                		 email=rs1.getString("email");
+		                		 name=rs1.getString("name");
+		                		 password=rs1.getString("password");
+		                		 user.setId(id);
+		                		 user.setEmail(email);
+		                		 user.setPassword(password);
+		         		 
+		         		 status=true;
+		         		 
+		                	 }
+		         		 }else{
+		         			 status=false;
+		         		 }
+		    			conn.close();
+
+		         } catch (Exception e) {
+		             e.printStackTrace();
+		         }finally
+		         {
+		        	 try {
+		        	         if (conn != null)
+		        	      	conn.close();
+		        	      } catch (SQLException ignore) {} // no point handling
+
+		        	      try {
+		        	         if (stmt != null)
+		        	             stmt.close();
+		        	      } catch (SQLException ignore) {} // no point handling
+
+		        	   try {
+		        	         if (stmt1 != null)
+		        	        	 stmt1.close();
+		        	      } catch (SQLException ignore) {} // no point handling
+		        	   try {
+		        	         if (rs != null)
+		        	        	 rs.close();
+		        	      } catch (SQLException ignore) {} // no point handling
+		        	   try {
+		        	         if (rs1 != null)
+		        	        	 rs1.close();
+		        	      } catch (SQLException ignore) {} // no point handling
+		        	 }
+		   	  
+		   	  
+		     return status; 
+		   
 		}
 }
