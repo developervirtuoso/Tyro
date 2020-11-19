@@ -61,12 +61,12 @@ public class SpanelPost {
 
         String url = url1;
         System.out.println(url);
-        String second = "http://49.50.86.152:6001/";
+        String second = "http://182.18.144.234:6001/";
         CookieHandler.setDefault(new CookieManager());
         SpanelPost http = new SpanelPost();
         List<NameValuePair> postParams = new ArrayList<NameValuePair>();
-        postParams.add(new BasicNameValuePair("UserName", "VIRTUOSOFT"));
-        postParams.add(new BasicNameValuePair("Password", "Virtuo#soft2net"));
+        postParams.add(new BasicNameValuePair("UserName", "Virtuosoft"));
+        postParams.add(new BasicNameValuePair("Password", "sing#coun@Virtu2"));
 
         if (responseCode == 200) {
             http.sendPost(second, postParams, msisdn,runvalue,reference,amount,username);
@@ -112,7 +112,7 @@ public class SpanelPost {
         
       
       if(runvalue==0) {
-    	  saveCridet("http://49.50.86.152:6001/WebAdmin/Administration/SaveCredit", postParams, msisdn,reference,amount,username);
+    	  saveCridet("http://182.18.144.234:6001/WebAdmin/Administration/SaveCredit", postParams, msisdn,reference,amount,username);
       }
       
     }
@@ -135,7 +135,7 @@ public class SpanelPost {
         
         StringEntity entity = new StringEntity("Payment_Reference="+reference+"&Credits="+amount+"&username="+username+"&CreditType=SMS");
 
-        post.setHeader("Host", "49.50.86.152:6001");
+        post.setHeader("Host", "182.18.144.234:6001");
         post.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0");
         post.setHeader("Accept", "application/json, text/javascript, */*; q=0.01");
         post.setHeader("Accept-Language", "en-US,en;q=0.5");
@@ -143,9 +143,9 @@ public class SpanelPost {
         post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         post.setHeader("X-Requested-With", "XMLHttpRequest");
 
-        post.setHeader("Origin", "http://49.50.86.152:6001");
+        post.setHeader("Origin", "http://182.18.144.234:6001");
         post.setHeader("Connection", "keep-alive");
-        post.setHeader("Referer", "http://49.50.86.152:6001/WebAdmin/Administration/UserManagement");
+        post.setHeader("Referer", "http://182.18.144.234:6001/WebAdmin/Administration/UserManagement");
         
         post.setHeader("Pragma", "no-cache");
         post.setHeader("Cache-Control", "no-cache");

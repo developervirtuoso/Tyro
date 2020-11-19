@@ -540,6 +540,28 @@ public class Smpp_DaoImpl {
 			List<ShowTyroBean> list=new ArrayList<ShowTyroBean>();
 			SmsService service=new SmsServiceDao();
 			Smpp_DaoImpl daoImpl=new Smpp_DaoImpl();
+			
+			//////////////////nimbusitsol/////////////////////////////
+			/*long nimbusitsol=service.getNimbusitsol();
+			String CIW_nimbusitsol=daoImpl.convertNumberToWords(nimbusitsol);
+			String total_Str_nimbusitsol=daoImpl.numToString(nimbusitsol);
+			if(total_Str_nimbusitsol.equals("")) {
+				total_Str_nimbusitsol="0";
+			}
+			daoImpl.setBeanToListTyro(list,"nimbusitsol","nimbusitsol",nimbusitsol,CIW_nimbusitsol,total_Str_nimbusitsol);
+			//System.out.println("==>"+list.toString());
+			//////////////////////////////////////////////////////////////
+			
+			//////////////////nimbus_t1/////////////////////////////
+			long nimbus_t1=service.getNimbus_t1();
+			String CIW_nimbus_t1=daoImpl.convertNumberToWords(nimbus_t1);
+			String total_Str_nimbus_t1=daoImpl.numToString(nimbus_t1);
+			if(total_Str_nimbus_t1.equals("")) {
+				total_Str_nimbus_t1="0";
+			}
+			daoImpl.setBeanToListTyro(list,"nimbus_t1","nimbus_t1",nimbus_t1,CIW_nimbus_t1,total_Str_nimbus_t1);*/
+			//////////////////////////////////////////////////////////////
+			
 			//////////////////tyrodigital/////////////////////////////
 			long tyrodigital=service.getTyrodigital();
 			String CIW_tyrodigital=daoImpl.convertNumberToWords(tyrodigital);

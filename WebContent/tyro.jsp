@@ -60,7 +60,7 @@ List<ShowTyroBean> list=daoImpl.getShowTyroBeans();
 				<tr>
 				<td><%=++count%></td>
 				<td><%=showTyroBean.getShowName() %> </td>
-				<td><a href="#" data-toggle="tooltip" title="<%=showTyroBean.getCiwValue()%>"><%=showTyroBean.getTotalCiwValue() %></a></td>
+				<td><a href="#" data-toggle="tooltip" title="<%=showTyroBean.getCiwValue()%>"><%=showTyroBean.getCredit() %></a></td>
 				<td><a href="showPaymentBySms?clr=appLanguages&act=appLanguages1&name=<%=showTyroBean.getName() %>" class="btn btn-success"> view</a></td>
 				<td> <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal<%=count%>">Transfer</button></td>
 			</tr>
@@ -72,14 +72,16 @@ List<ShowTyroBean> list=daoImpl.getShowTyroBeans();
 			      <div class="modal-content">
 			        <div class="modal-header">
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
-			          <h4 class="modal-title">Sms Credits : <%=showTyroBean.getTotalCiwValue() %></h4>
+			          <h4 class="modal-title">Sms Credits : <%=showTyroBean.getCredit() %></h4>
 			        </div>
-			        <form action="TransferAmount" method="post">
+			        <form action="TransferAmount" id="trnsFrom<%=count%>" method="post" >
 				        <div class="modal-body">
 				         <input name="removeUsername" type="hidden" value="<%=showTyroBean.getName()%>">
 				         <div class="form-group">
 						    <label for="pwd">Transfer Sms Credits</label>
-				        	 <input type="number" name="amount" class="form-control" max="<%=showTyroBean.getTotalCiwValue() %>" min="10" required="required" >
+						    <input type="hidden" name="oldAmount" id="oldAmount<%=count%>" value="<%=showTyroBean.getCredit()%>">
+				        	<input type="number" name="amount" id="newAmount<%=count%>" class="form-control" max="<%=showTyroBean.getTotalCiwValue() %>" min="10" required="required"  onkeyup="checkAmount(<%=count%>);">
+						 	<span id="tranSpan<%=count%>" style="color: red; display: none;">Sufficient Credits unavailable</span>
 						  </div>
 						  <div class="form-group">
 						    <label for="pwd">Choose User</label>
@@ -96,7 +98,7 @@ List<ShowTyroBean> list=daoImpl.getShowTyroBeans();
 						  </div>
 				        </div>
 				        <div class="modal-footer">
-				        <input type="submit" value="Transfer" class="btn btn-primary">
+				        <input type="submit" value="Transfer" id="transfer<%=count%>"  disabled="disabled" class="btn btn-primary">
 				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				        </div>
 			        </form>
@@ -152,8 +154,29 @@ td {
 }
 	</style>
 </body>
+<script type="text/javascript">
+	function checkAmount(count) {
+		var oldAmount=document.getElementById("oldAmount"+count).value;
+		var newAmount=document.getElementById("newAmount"+count).value;
+		var o = parseInt(oldAmount)
+		var n = parseInt(newAmount)
+		
+		if(n>o){
+			document.getElementById("tranSpan"+count).style.display="block";
+			document.getElementById("transfer"+count).disabled = true;
+		}else{
+			document.getElementById("tranSpan"+count).style.display="none";
+			document.getElementById("transfer"+count).disabled = false;
+		}
+		
+	}
+	
+	
+</script>
+
  <%}else { 
                  response.sendRedirect("login");
                  }
                  %> 
+     
 </html>

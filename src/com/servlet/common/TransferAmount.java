@@ -36,7 +36,7 @@ public class TransferAmount extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String removeUsername=request.getParameter("removeUsername");
 		double amount=(Double.parseDouble(request.getParameter("amount"))/10);
-		
+		System.out.println("amount==>"+amount);
 		String addUsername=request.getParameter("addUsername");
 		SpanelPost spanelPost=new SpanelPost();
 		String username="shivali";
